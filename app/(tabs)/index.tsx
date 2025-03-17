@@ -1,20 +1,62 @@
-import {View, Text, StyleSheet, Image }from 'react-native'
+import {View, Text, StyleSheet, Image, FlatList, TouchableOpacity, TextInput}from 'react-native'
+import { useState } from 'react'
+const [contador, setContador] = useState(0)
+const [texto, setTexto] = useState('')
+const wishList = [ 
+  "Coca Cola",
+  "Pepsi",
+  "Fanta",
+  "Sprite",
+]
+
+
 export default function Index() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.colorText}>im not have more curse! this my secund hello-word</Text>
-      <Image style={styles.image} source={require("../(tabs)/images/eminem.jpg")}/>
-      <Text style={styles.secundText}>if you need cry, no problem you can cry, but beliver in you in to the end</Text>
-    </View>
+      <View style={styles.container}>
+        <Image style={styles.image} source={require("../(tabs)/images/lista.webp")}/>
+      
+        <FlatList
+          keyExtractor={(index) => index.toString()}
+          data={wishList}
+          renderItem={({ item }) =>
+            <View>
+                <Text style={styles.list}>{contador + " "+ item}</Text>
+            </View> 
+          }
+        />
+          <TextInput
+          style={styles.input}
+          placeholder="Digite algo..."
+          value={texto}
+          onChangeText={setTexto} // Atualiza o estado ao digitar
+        /> 
+      </View>
   )
 }
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'red'
+    backgroundColor: 'red',
+    flexDirection: 'column',
+    gap: 50,
+  },
+  input:{
+    width: 300,
+    height: 50,
+    borderColor: 'black',
+    borderWidth: 5,
+    borderRadius: 10,
+    padding: 10,
+  },
+  button:{
+    backgroundColor: 'blue',
+    padding: 10,
+    borderRadius: 10,
+    marginTop: 20,
   },
   colorText:{
     color: 'yellow',
@@ -24,7 +66,8 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 5,
     padding: 10,
-    borderRadius: 10
+    borderRadius: 10,
+    marginBottom: 200
   },
   image:{
     width: 300,
@@ -32,7 +75,6 @@ const styles = StyleSheet.create({
     borderRadius: 150,
     borderColor: 'black',
     borderWidth: 5,
-    marginTop: 20
   },
   secundText:{
     color: 'black',
@@ -40,5 +82,16 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
     marginTop: 20
+  },
+  list:{
+    width: 350,
+    color: 'black',
+    fontSize: 20,
+    fontWeight: 'bold',
+    padding: 10,
+    borderColor: 'black',
+    borderWidth: 5,
+    borderRadius: 10,
+    marginBottom: 10,
   }
 })
